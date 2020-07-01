@@ -64,7 +64,24 @@
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages aidc)
   #:use-module (gnu packages security-token)
-  #:use-module (gnu packages mcrypt))
+  #:use-module (gnu packages mcrypt)
+  #:use-module (gnu packages musl))
+
+(define (package-with-musl base)
+  (package
+    (inherit base)
+    (arguments
+     (substitute-keyword-arguments (package-arguments base)
+      ((#:disallowed-references disallowed-references '())
+       (cons glibc disallowed-references))
+      ((#:phases phases)
+       `(modify-phases ,phases
+          (add-after 'unpack 'setenv-musl
+            (lambda _
+              #t))))))
+    (native-inputs
+     `(("musl" ,musl)
+       ,@(package-native-inputs base)))))
 
 (define-public musl-cross
   (let ((revision "3")
@@ -207,7 +224,7 @@ done
 ;; FIXME musl-build-system
 ;; Note: Not reproducible.
 (define-public heads-busybox
-  (package
+  (package-with-musl (package
     (inherit busybox)
     (name "heads-busybox")
     (version "1.28.0")
@@ -239,7 +256,7 @@ done
        ("which" ,which) ; for the tests
        ("zip" ,zip))) ; for the tests
     (inputs
-     `())))
+     `()))))
 
 ;; FIXME musl-build-system
 (define-public heads-libpng
