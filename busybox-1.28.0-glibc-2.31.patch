@@ -1,0 +1,53 @@
+See https://bugs.gentoo.org/708350
+Author:     Patrick McLean <patrick.mclean@sony.com>
+Date: 2020-02-06 23:06:22 +0000
+
+diff -ru orig/busybox-1.28.0/coreutils/date.c busybox-1.28.0/coreutils/date.c
+--- orig/busybox-1.28.0/coreutils/date.c	2017-10-20 10:36:58.000000000 +0200
++++ busybox-1.28.0/coreutils/date.c	2020-06-11 19:44:29.644052649 +0200
+@@ -279,6 +279,9 @@
+ 		time(&ts.tv_sec);
+ #endif
+ 	}
++#if !ENABLE_FEATURE_DATE_NANO
++ ts.tv_nsec = 0;
++#endif
+ 	localtime_r(&ts.tv_sec, &tm_time);
+ 
+ 	/* If date string is given, update tm_time, and maybe set date */
+@@ -301,9 +304,10 @@
+ 		if (date_str[0] != '@')
+ 			tm_time.tm_isdst = -1;
+ 		ts.tv_sec = validate_tm_time(date_str, &tm_time);
++		ts.tv_nsec = 0;
+ 
+ 		/* if setting time, set it */
+-		if ((opt & OPT_SET) && stime(&ts.tv_sec) < 0) {
++		if ((opt & OPT_SET) && clock_settime(CLOCK_REALTIME, &ts) < 0) {
+ 			bb_perror_msg("can't set date");
+ 		}
+ 	}
+Nur in busybox-1.28.0/coreutils: date.c.orig.
+Nur in busybox-1.28.0/coreutils: date.c.rej.
+Nur in busybox-1.28.0/libbb: missing_syscalls.c.rej.
+diff -ru orig/busybox-1.28.0/util-linux/rdate.c busybox-1.28.0/util-linux/rdate.c
+--- orig/busybox-1.28.0/util-linux/rdate.c	2017-08-17 13:50:45.000000000 +0200
++++ busybox-1.28.0/util-linux/rdate.c	2020-06-11 19:43:38.179831897 +0200
+@@ -95,9 +95,13 @@
+ 	if (!(flags & 2)) { /* no -p (-s may be present) */
+ 		if (time(NULL) == remote_time)
+ 			bb_error_msg("current time matches remote time");
+-		else
+-			if (stime(&remote_time) < 0)
++		else {
++			struct timespec ts;
++			ts.tv_sec = remote_time;
++			ts.tv_nsec = 0;
++			if (clock_settime(CLOCK_REALTIME, &ts) < 0)
+ 				bb_perror_msg_and_die("can't set time of day");
++		}
+ 	}
+ 
+ 	if (flags != 1) /* not lone -s */
+Nur in busybox-1.28.0/util-linux: rdate.c.orig.
+Nur in busybox-1.28.0/util-linux: rdate.c.rej.
