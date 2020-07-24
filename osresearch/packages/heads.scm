@@ -1447,17 +1447,21 @@ time_t time(time_t* p)
     (license #f)))
 
 ;; FIXME musl-build-system
+;; FIXME Copy board-specific stuff in here.
+;; FIXME verify that that is the version that Heads upstream uses.
 (define-public heads-u-root
   (package
     (name "heads-u-root")
-    (version "FIXME")
+    (version "6.0.0")
     (source (origin
-              (method url-fetch)
-              (uri (string-append "FIXME" version ".tar.gz"))
-              (file-name (string-append name "-" version ".tar.gz"))
+              (method git-fetch)
+              (uri (git-reference
+                    (url "https://github.com/u-root/u-root.git")
+                    (commit (string-append "v" version))))
+              (file-name (string-append name "-" version "-checkout"))
               (sha256
                (base32
-                "1vsrc0s62kv1i84skm6k5zy868gayjck268qwj38rpspc8c5qgih"))))
+                "1d7xps86y6rnzh2g574jfpmbfigw0mmvls2qbrif3nm2b8lw8068"))))
     (build-system gnu-build-system)
     (propagated-inputs
      `())
