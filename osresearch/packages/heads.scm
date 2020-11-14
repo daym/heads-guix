@@ -123,14 +123,6 @@
               (patches
                (search-patches "busybox-1.28.0-glibc-2.31.patch"))))
     (build-system gnu-build-system)
-    (arguments
-     (substitute-keyword-arguments (package-arguments busybox)
-       ((#:phases phases)
-        `(modify-phases ,phases
-           (add-after 'unpack 'setenv
-             (lambda _
-               (setenv "KCONFIG_NOTIMESTAMP" "1")
-               #t))))))
  ;       `(cons "CONFIG_EXTRA_CFLAGS=-DBB_EXTRA_VERSION=\"-\"" ,make-flags))))
         ;`(cons "BB_EXTRA_VERSION=\"-\"" ,make-flags))))
         ;CONFIG_EXTRA_CFLAGS="-D..."
