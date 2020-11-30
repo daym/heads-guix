@@ -68,6 +68,24 @@
   #:use-module (gnu packages mcrypt)
   #:use-module (gnu packages musl))
 
+;; TODO: Auto-target musl.
+(define-public gcc-8.3
+  (package
+    (inherit gcc-7)
+    (version "8.3.0")
+    (source (origin
+              (method url-fetch)
+              (uri (string-append "mirror://gnu/gcc/gcc-"
+                                  version "/gcc-" version ".tar.xz"))
+              (sha256
+               (base32
+                "2m1d3gfix56w4aq8myazzfffkl8bqcrx4jhhapnjf7qfs596w2p3"))
+              (patches (search-patches "gcc-8-strmov-store-file-names.patch"
+                                       "gcc-5.0-libvtv-runpath.patch"))))))
+
+; musl-cross-make: gcc-8.3.0 is the default.
+; Newest they support is gcc-9.2.0.
+
 (define (package-with-musl base)
   (package
     (inherit base)
@@ -93,24 +111,6 @@
 ;(gnu packages commencement))))
 ;    (module-ref distro '%final-inputs)))
 ;cross-base
-
-;; TODO: Auto-target musl.
-(define-public gcc-8.3
-  (package
-    (inherit gcc-7)
-    (version "8.3.0")
-    (source (origin
-              (method url-fetch)
-              (uri (string-append "mirror://gnu/gcc/gcc-"
-                                  version "/gcc-" version ".tar.xz"))
-              (sha256
-               (base32
-                "2m1d3gfix56w4aq8myazzfffkl8bqcrx4jhhapnjf7qfs596w2p3"))
-              (patches (search-patches "gcc-8-strmov-store-file-names.patch"
-                                       "gcc-5.0-libvtv-runpath.patch"))))))
-
-; musl-cross-make: gcc-8.3.0 is the default.
-; Newest they support is gcc-9.2.0.
 
 ;; FIXME musl-build-system
 (define-public heads-busybox
