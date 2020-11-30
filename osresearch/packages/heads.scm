@@ -107,25 +107,19 @@
 ; Newest they support is gcc-9.2.0.
 
 ;; FIXME musl-build-system
-;; Note: Not reproducible.
 (define-public heads-busybox
   (package-with-musl (package
     (inherit busybox)
     (name "heads-busybox")
-    (version "1.28.0")
+    (version "1.31.1")
     (source (origin
               (method url-fetch)
               (uri (string-append "https://busybox.net/downloads/busybox-"
                                   version ".tar.bz2"))
               (sha256
                (base32
-                "1701carjf02y7r3djm1yvyd5kzrcxm4szinp7agfv7fmvfvm6ib0"))
-              (patches
-               (search-patches "busybox-1.28.0-glibc-2.31.patch"))))
+                "1712carjf02y7r3djm1yvyd5kzrcxm4szinp7agfv7fmvfvm6ib4"))))
     (build-system gnu-build-system)
- ;       `(cons "CONFIG_EXTRA_CFLAGS=-DBB_EXTRA_VERSION=\"-\"" ,make-flags))))
-        ;`(cons "BB_EXTRA_VERSION=\"-\"" ,make-flags))))
-        ;CONFIG_EXTRA_CFLAGS="-D..."
     (propagated-inputs
      `())
     (native-inputs
