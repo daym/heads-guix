@@ -84,6 +84,8 @@
               #t))))))
     (native-inputs
      `(("musl" ,musl)
+       ("tar" ,tar)
+       ("xz" ,xz)
        ,@(package-native-inputs base)))))
 
 ;(gnu packages commencement))))
