@@ -118,7 +118,10 @@
                                   version ".tar.bz2"))
               (sha256
                (base32
-                "1659aabzp8w4hayr4z8kcpbk2z1q2wqhw7i1yb0l72b45ykl1yfh"))))
+                "1659aabzp8w4hayr4z8kcpbk2z1q2wqhw7i1yb0l72b45ykl1yfh"))
+              (patches
+               (search-patches
+                "busybox-1.31.1-fix-build-with-glibc-2.31.patch"))))
     (build-system gnu-build-system)
     (propagated-inputs
      `())
