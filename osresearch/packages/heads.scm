@@ -106,6 +106,7 @@
        ("make" ,gnu-make) ; TODO: gnu-make-final
        ("coreutils" ,coreutils) ; example user: heads-busybox package.
        ("xz" ,xz)
+       ("gcc" ,gcc-8.3)
        ,@(package-native-inputs base)))))
 
 ;(gnu packages commencement))))
