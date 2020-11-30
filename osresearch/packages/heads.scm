@@ -85,6 +85,7 @@
     (native-inputs
      `(("musl" ,musl)
        ("tar" ,tar)
+       ("make" ,gnu-make) ; TODO: gnu-make-final
        ("xz" ,xz)
        ,@(package-native-inputs base)))))
 
