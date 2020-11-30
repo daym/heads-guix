@@ -86,6 +86,7 @@
      `(("musl" ,musl)
        ("tar" ,tar)
        ("make" ,gnu-make) ; TODO: gnu-make-final
+       ("coreutils" ,coreutils) ; example user: heads-busybox package.
        ("xz" ,xz)
        ,@(package-native-inputs base)))))
 
