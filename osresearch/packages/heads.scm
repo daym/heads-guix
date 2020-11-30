@@ -79,7 +79,7 @@
                                   version "/gcc-" version ".tar.xz"))
               (sha256
                (base32
-                "2m1d3gfix56w4aq8myazzfffkl8bqcrx4jhhapnjf7qfs596w2p3"))
+                "0b3xv411xhlnjmin2979nxcbnidgvzqdf4nbhix99x60dkzavfk4"))
               (patches (search-patches "gcc-8-strmov-store-file-names.patch"
                                        "gcc-5.0-libvtv-runpath.patch"))))))
 
