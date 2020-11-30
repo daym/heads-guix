@@ -73,6 +73,8 @@
     (inherit base)
     (arguments
      (substitute-keyword-arguments (package-arguments base)
+      ((#:implicit-inputs? #f #f)
+       #f)
       ((#:disallowed-references disallowed-references '())
        (cons glibc disallowed-references))
       ((#:phases phases)
