@@ -860,6 +860,7 @@ include_directories(hidapi/hidapi)"))
     (native-inputs
      `(("edk2" ,udk2018)
        ("libuuid" ,util-linux "lib")
+       ("nasm" ,nasm)
        ("perl" ,perl)
        ("python" ,python-2)))
     (inputs
