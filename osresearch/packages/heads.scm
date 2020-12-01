@@ -1080,6 +1080,9 @@ time_t time(time_t* p)
                (base32
                 "1j2c61nn2n351nhj4d25mnf3vpiddcykq005w2h6kw79dwlysa77"))))
     (build-system gnu-build-system)
+    (arguments
+     `(#:phases
+       (modify-phases %standard-phases)))
     (propagated-inputs
      `())
     (native-inputs
