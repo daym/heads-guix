@@ -1087,7 +1087,7 @@ time_t time(time_t* p)
            (lambda _
              (substitute* "test-poptrc.in"
                (("/bin/echo") (which "echo")))
-             (substitute* "tests/testit.sh"   ;don't expect old libtool names
+             (substitute* "testit.sh"   ;don't expect old libtool names
                (("lt-test1") "test1"))
              #t)))))
     (propagated-inputs
