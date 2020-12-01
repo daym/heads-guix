@@ -844,7 +844,7 @@ include_directories(hidapi/hidapi)"))
              (chmod "edk2/EmulatorPkg/Unix/Host" #o770)
              (delete-file "edk2/EmulatorPkg/Unix/Host/X11IncludeHack")
              ;; The git checkout must be writable for tests.
-             (for-each make-file-writable (find-files "edk2" #:directories? #t))
+             (for-each make-file-writable (find-files "edk2"))
              ;; Guix reproducibility had .git deleted, but the Makefile expects it as a (fake) dependency.
              (call-with-output-file "edk2/.git"
                (const #t))
