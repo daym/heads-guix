@@ -837,6 +837,9 @@ include_directories(hidapi/hidapi)"))
          (add-after 'unpack 'unpack-edk2
            (lambda* (#:key inputs #:allow-other-keys)
              (copy-recursively (assoc-ref inputs "edk2") "edk2")
+             ;; Guix reproducibility had .git deleted, but the Makefile expects it as a (fake) dependency.
+             (call-with-output-file "edk2/.git"
+               (const #t))
              #t))
          (add-after 'unpack 'patch-references
            (lambda _
