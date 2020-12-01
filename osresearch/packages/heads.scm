@@ -1082,7 +1082,14 @@ time_t time(time_t* p)
     (build-system gnu-build-system)
     (arguments
      `(#:phases
-       (modify-phases %standard-phases)))
+       (modify-phases %standard-phases
+         (add-before 'configure 'patch-test
+           (lambda _
+             (substitute* "tests/test-poptrc.in"
+               (("/bin/echo") (which "echo")))
+             (substitute* "tests/testit.sh"   ;don't expect old libtool names
+               (("lt-test1") "test1"))
+             #t)))))
     (propagated-inputs
      `())
     (native-inputs
