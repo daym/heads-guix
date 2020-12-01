@@ -831,6 +831,8 @@ include_directories(hidapi/hidapi)"))
     (arguments
      `(#:make-flags
        (list "SHELL=bash"
+             (string-append "CC=" ,(cc-for-target))
+             "BUILD_CC=gcc"
              (string-append "KERNEL=" (assoc-ref %build-inputs "heads-linux") "/bzImage")
              ) ; TODO: BOARD INITRD
        #:phases
