@@ -854,6 +854,7 @@ include_directories(hidapi/hidapi)"))
      `())
     (native-inputs
      `(("edk2" ,udk2018)
+       ("libuuid" ,util-linux "lib")
        ("perl" ,perl)))
     (inputs
      `(("heads-linux" ,heads-linux)))
