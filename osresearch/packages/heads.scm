@@ -553,7 +553,8 @@
        ("libtool" ,libtool)
        ("pkg-config" ,pkg-config)))
     (inputs
-     `(("libudev" ,eudev)))))
+     `(("libudev" ,eudev)
+       ("heads-libusb" ,heads-libusb)))))
 
 ;; FIXME musl-build-system
 (define-public heads-kexec
