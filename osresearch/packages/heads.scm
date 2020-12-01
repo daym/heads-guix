@@ -840,6 +840,8 @@ include_directories(hidapi/hidapi)"))
          (add-after 'unpack 'unpack-edk2
            (lambda* (#:key inputs #:allow-other-keys)
              (copy-recursively (assoc-ref inputs "edk2") "edk2")
+             ;; The git checkout must be writable for tests.
+             (for-each make-file-writable (find-files "edk2" #:directories? #t))
              ;; Guix reproducibility had .git deleted, but the Makefile expects it as a (fake) dependency.
              (call-with-output-file "edk2/.git"
                (const #t))
