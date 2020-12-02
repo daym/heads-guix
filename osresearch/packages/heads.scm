@@ -868,6 +868,7 @@ include_directories(hidapi/hidapi)"))
     (native-inputs
      `(("acpica" ,acpica)
        ("edk2" ,udk2018)
+       ("file" ,file)
        ("libuuid" ,util-linux "lib")
        ("nasm" ,nasm)
        ("perl" ,perl)
