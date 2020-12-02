@@ -883,8 +883,8 @@ include_directories(hidapi/hidapi)"))
     (home-page "FIXME")
     (license #f)))
 
-(define-public heads-linuxboot-qemu-linuxboot
-  (heads-linuxboot "qemu-linuxboot"))
+(define-public heads-linuxboot-qemu
+  (heads-linuxboot "qemu"))
 
 ;; FIXME musl-build-system
 (define-public heads-lvm2
