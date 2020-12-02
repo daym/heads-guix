@@ -835,7 +835,7 @@ include_directories(hidapi/hidapi)"))
              "BUILD_CC=gcc"
              (string-append "KERNEL=" (assoc-ref %build-inputs "heads-linux") "/bzImage")
              (string-append "INITRD=initrd.cpio.xz")
-             (string-append "BOARD=" board))
+             (string-append "BOARD=" ,board))
        #:phases
        (modify-phases %standard-phases
          (add-after 'unpack 'unpack-edk2
