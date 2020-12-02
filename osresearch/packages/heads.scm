@@ -834,7 +834,8 @@ include_directories(hidapi/hidapi)"))
              (string-append "CC=" ,(cc-for-target))
              "BUILD_CC=gcc"
              (string-append "KERNEL=" (assoc-ref %build-inputs "heads-linux") "/bzImage")
-             ) ; TODO: BOARD INITRD
+             (string-append "INITRD=" (assoc-ref %build-inputs "heads-dev-cpio") "/libexec/initrd.cpio.xz")
+             ) ; TODO: BOARD
        #:phases
        (modify-phases %standard-phases
          (add-after 'unpack 'unpack-edk2
@@ -865,7 +866,8 @@ include_directories(hidapi/hidapi)"))
        ("perl" ,perl)
        ("python" ,python-2)))
     (inputs
-     `(("heads-linux" ,heads-linux)))
+     `(("heads-dev-cpio" ,heads-dev-cpio)
+       ("heads-linux" ,heads-linux)))
     (synopsis "linuxboot")
     (description "FIXME")
     (home-page "FIXME")
