@@ -834,7 +834,7 @@ include_directories(hidapi/hidapi)"))
              (string-append "CC=" ,(cc-for-target))
              "BUILD_CC=gcc"
              (string-append "KERNEL=" (assoc-ref %build-inputs "heads-linux") "/bzImage")
-             (string-append "INITRD=" (assoc-ref %build-inputs "heads-dev-cpio") "/libexec/initrd.cpio.xz")
+             (string-append "INITRD=initrd.cpio.xz")
              ) ; TODO: BOARD
        #:phases
        (modify-phases %standard-phases
@@ -855,6 +855,14 @@ include_directories(hidapi/hidapi)"))
              (substitute* "dxe/Makefile"
               (("/usr/bin/printf") "command printf"))
              #t))
+         (add-after 'unpack 'prepare-initrd
+           (lambda* (#:key inputs #:allow-other-keys)
+             (copy-file (string-append (assoc-ref inputs "heads-dev-cpio") "/libexec/dev.cpio")
+                        "initrd.cpio")
+             ;; FIXME: Make sure that initrd.cpio.xz is a multiple of 512 Byte long! (see Heads)
+             (invoke "xz" "-f" "--check=crc32" "--lzma2=dict=1MiB" "-9"
+                     "initrd.cpio")
+             #t))
          (delete 'configure))))
     (propagated-inputs
      `())
@@ -864,7 +872,8 @@ include_directories(hidapi/hidapi)"))
        ("libuuid" ,util-linux "lib")
        ("nasm" ,nasm)
        ("perl" ,perl)
-       ("python" ,python-2)))
+       ("python" ,python-2)
+       ("xz" ,xz)))
     (inputs
      `(("heads-dev-cpio" ,heads-dev-cpio)
        ("heads-linux" ,heads-linux)))
