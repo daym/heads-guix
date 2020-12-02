@@ -813,9 +813,9 @@ include_directories(hidapi/hidapi)"))
       (base32 "0s3vljxhbsbdjy2a2ydv0835rhdakvhn8c8p4x4ch29fcrjc3ymf"))))
 
 ;; FIXME musl-build-system
-(define-public heads-linuxboot
+(define (heads-linuxboot board)
   (package
-    (name "heads-linuxboot")
+    (name (string-append "heads-linuxboot-" board))
     (version "FIXME")
     (source (origin
               (method git-fetch)
@@ -834,7 +834,8 @@ include_directories(hidapi/hidapi)"))
              (string-append "CC=" ,(cc-for-target))
              "BUILD_CC=gcc"
              (string-append "KERNEL=" (assoc-ref %build-inputs "heads-linux") "/bzImage")
-             (string-append "INITRD=initrd.cpio.xz"))
+             (string-append "INITRD=initrd.cpio.xz")
+             (string-append "BOARD=" board))
        #:phases
        (modify-phases %standard-phases
          (add-after 'unpack 'unpack-edk2
@@ -882,14 +883,8 @@ include_directories(hidapi/hidapi)"))
     (home-page "FIXME")
     (license #f)))
 
-(define-public heads-qemu-linuxboot
-  (package
-    (inherit heads-linuxboot)
-    (name "heads-qemu-linuxboot")
-    (arguments
-     `(#:make-flags
-       '("BOARD=qemu-linuxboot")
-       ,@(package-arguments heads-linuxboot)))))
+(define-public heads-linuxboot-qemu-linuxboot
+  (heads-linuxboot "qemu-linuxboot"))
 
 ;; FIXME musl-build-system
 (define-public heads-lvm2
