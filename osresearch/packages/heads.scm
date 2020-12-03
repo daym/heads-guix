@@ -850,6 +850,12 @@ include_directories(hidapi/hidapi)"))
              (call-with-output-file "edk2/.git"
                (const #t))
              #t))
+         (add-after 'unpack-edk2 'build-edk2
+           (lambda _
+             (invoke "make" "edk2.force")
+             (when (string=? ,board "qemu")
+               (with-directory-excursion "edk2/OvmfPkg"
+                 (invoke "./build.sh" "-n" (number->string (parallel-job-count)))))))
          (add-after 'unpack 'patch-references
            (lambda _
              (substitute* "dxe/Makefile"
