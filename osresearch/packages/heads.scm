@@ -838,6 +838,10 @@ include_directories(hidapi/hidapi)"))
              (string-append "BOARD=" ,board))
        #:phases
        (modify-phases %standard-phases
+         (replace 'configure
+           (lambda _
+             (setenv "SHELL "bash")
+             #t))
          (add-after 'unpack 'unpack-edk2
            (lambda* (#:key inputs #:allow-other-keys)
              (copy-recursively (assoc-ref inputs "edk2") "edk2")
@@ -868,8 +872,7 @@ include_directories(hidapi/hidapi)"))
              ;; FIXME: Make sure that initrd.cpio.xz is a multiple of 512 Byte long! (see Heads)
              (invoke "xz" "-f" "--check=crc32" "--lzma2=dict=1MiB" "-9"
                      "initrd.cpio")
-             #t))
-         (delete 'configure))))
+             #t)))))
     (propagated-inputs
      `())
     (native-inputs
