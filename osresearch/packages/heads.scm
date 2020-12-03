@@ -851,8 +851,8 @@ include_directories(hidapi/hidapi)"))
                (const #t))
              #t))
          (add-after 'unpack-edk2 'build-edk2
-           (lambda _
-             (invoke "make" "edk2.force")
+           (lambda* (#:key make-flags #:allow-other-keys)
+             (apply invoke "make" "edk2.force" make-flags)
              (when (string=? ,board "qemu")
                (with-directory-excursion "edk2/OvmfPkg"
                  (invoke "./build.sh" "-n" (number->string (parallel-job-count)))))))
