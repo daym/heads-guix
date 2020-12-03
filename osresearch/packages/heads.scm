@@ -840,7 +840,7 @@ include_directories(hidapi/hidapi)"))
        (modify-phases %standard-phases
          (replace 'configure
            (lambda _
-             (setenv "SHELL "bash")
+             (setenv "SHELL" "bash")
              #t))
          (add-after 'unpack 'unpack-edk2
            (lambda* (#:key inputs #:allow-other-keys)
