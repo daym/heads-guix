@@ -874,6 +874,7 @@ include_directories(hidapi/hidapi)"))
      `())
     (native-inputs
      `(("acpica" ,acpica)
+       ("brotli" ,google-brotli)
        ("edk2" ,udk2018)
        ("file" ,file)
        ("libuuid" ,util-linux "lib")
