@@ -1425,3 +1425,45 @@ time_t time(time_t* p)
      `())
     (inputs
      `())))
+
+
+(define-public heads-boards-x230
+  (let ((revision "0")
+        (commit "671522eff43bbf87e3112ed0075f29fbf1a391fe"))
+    (package
+      (name "heads-boards-x230")
+      (version (git-version "0.1" revision commit))
+      (source (origin
+                (method git-fetch)
+                (uri (git-reference
+                      (url "https://github.com/osresearch/heads.git")
+                      (commit commit))
+                (file-name (string-append name "-" version "-checkout"))
+                (sha256
+                 (base32
+                  "1vsrc1s62kv1i84skm6k5zy868gayjck268qwj38rpspc8c5qgih"))))
+      (build-system gnu-build-system)
+      (inputs
+       `(("heads-cryptsetup" ,heads-cryptsetup)
+         ("heads-flashrom" ,heads-flashrom)
+         ("heads-flashtools" ,heads-flashtools)
+         ("heads-gpg2" ,heads-gpg2)
+         ("heads-kexec" ,heads-kexec)
+         ("heads-util-linux" ,heads-util-linux "lib")
+         ("heads-lvm2" ,heads-lvm2)
+         ("heads-mbedtls" ,heads-mbedtls)
+         ("heads-pciutils" ,heads-pciutils)
+         ("heads-popt" ,heads-popt)
+         ("heads-qrencode" ,heads-qrencode)
+         ("heads-tpmtotp" ,heads-tpmtotp)
+         ("heads-dropbear" ,heads-dropbear)
+         ("heads-cairo" ,heads-cairo)
+         ("heads-fbwhiptail" ,heads-fbwhiptail)
+
+         ; TODO CONFIG_LINUX_USBff
+         ))
+      (synopsis "heads-boards-x230")
+      (description "This package provides a firmware image to flash to an
+  X230.")
+      (home-page "https://github.com/osresearch/heads/")
+      (license license:gpl2)))))
