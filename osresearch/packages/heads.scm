@@ -1437,11 +1437,11 @@ time_t time(time_t* p)
                 (method git-fetch)
                 (uri (git-reference
                       (url "https://github.com/osresearch/heads.git")
-                      (commit commit))
+                      (commit commit)))
                 (file-name (string-append name "-" version "-checkout"))
                 (sha256
                  (base32
-                  "1vsrc1s62kv1i84skm6k5zy868gayjck268qwj38rpspc8c5qgih")))))
+                  "1vsrc1s62kv1i84skm6k5zy868gayjck268qwj38rpspc8c5qgih"))))
       (build-system gnu-build-system)
       (inputs
        `(("heads-cryptsetup" ,heads-cryptsetup)
