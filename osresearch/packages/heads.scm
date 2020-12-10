@@ -1441,7 +1441,7 @@ time_t time(time_t* p)
                 (file-name (string-append name "-" version "-checkout"))
                 (sha256
                  (base32
-                  "1vsrc1s62kv1i84skm6k5zy868gayjck268qwj38rpspc8c5qgih"))))
+                  "1vsrc1s62kv1i84skm6k5zy868gayjck268qwj38rpspc8c5qgih")))))
       (build-system gnu-build-system)
       (inputs
        `(("heads-cryptsetup" ,heads-cryptsetup)
@@ -1466,4 +1466,4 @@ time_t time(time_t* p)
       (description "This package provides a firmware image to flash to an
   X230.")
       (home-page "https://github.com/osresearch/heads/")
-      (license license:gpl2)))))
+      (license license:gpl2))))
