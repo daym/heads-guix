@@ -282,8 +282,7 @@ systems supported by coreboot.")
      `(("cross-gcc" ,(cross-gcc "i686-linux-gnu"
                                 #:xbinutils (cross-binutils "i686-linux-gnu")
                                 #:libc (cross-libc "i686-linux-gnu")))
-       ("cross-libc" ,(cross-libc "i686-linux-gnu")) ; header files
-       ("cross-libc-static" ,(cross-libc "i686-linux-gnu") "static")
+       ("cross-binutils" ,(cross-binutils "i686-linux-gnu"))
        ("iasl" ,acpica)))
     (inputs
      `())
