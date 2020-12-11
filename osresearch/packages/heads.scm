@@ -212,6 +212,8 @@
     (inputs
      `())))
 
+;; Note: This package's contents are installed to
+;; $output/libexec/coreboot/3rdparty/blobs/ .
 (define-public heads-coreboot-blobs
   (package
     (name "heads-coreboot-blobs")
