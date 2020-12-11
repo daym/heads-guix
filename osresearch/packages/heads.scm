@@ -259,7 +259,7 @@
     (synopsis "coreboot")
     (description "FIXME")
     (home-page "FIXME")
-    (license #f)))
+    (license license:gpl2)))
 
 ;; FIXME musl-build-system
 (define-public heads-util-linux
