@@ -16,6 +16,7 @@
 (define-module (osresearch packages heads)
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (guix build-system cmake)
+  #:use-module (guix build-system copy)
   #:use-module (guix build-system gnu)
   #:use-module (guix packages)
   #:use-module (guix download)
@@ -210,6 +211,29 @@
      `(("pkg-config" ,pkg-config)))
     (inputs
      `())))
+
+(define-public heads-coreboot-blobs
+  (package
+    (name "heads-coreboot-blobs")
+    (version "4.8.1")
+    (source (origin
+              (method url-fetch)
+              (uri (string-append "https://www.coreboot.org/releases/coreboot-blobs-" version ".tar.xz"))
+              (file-name (string-append name "-" version ".tar.gz"))
+              (sha256
+               (base32
+                "1vsrc3s62kv1i84skm6k5zy868gayjck268qwj38rpspc8c5qgih"))))
+    (build-system copy-build-system)
+    (arguments
+     '(#:install-plan
+       '(("." "libexec/coreboot/"))))
+    (native-inputs
+     `(("xz" ,xz)))
+    (synopsis "Coreboot binary blobs")
+    (description "This package provides the binary blobs needed for some
+systems supported by coreboot.")
+    (home-page "https://www.coreboot.org/")
+    (license #f)))
 
 ;; FIXME musl-build-system
 (define-public heads-coreboot
