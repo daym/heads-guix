@@ -253,7 +253,8 @@
                                 #:xbinutils (cross-binutils "i686-linux-gnu")
                                 #:libc (cross-libc "i686-linux-gnu")))
        ("cross-libc" ,(cross-libc "i686-linux-gnu")) ; header files
-       ("cross-libc-static" ,(cross-libc "i686-linux-gnu") "static")))
+       ("cross-libc-static" ,(cross-libc "i686-linux-gnu") "static")
+       ("iasl" ,acpica)))
     (inputs
      `())
     (synopsis "coreboot")
