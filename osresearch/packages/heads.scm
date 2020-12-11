@@ -274,7 +274,7 @@ systems supported by coreboot.")
              (call-with-output-file ".config"
                ;; FIXME: Get config from Heads.
                (lambda (port)
-                 #t))
+                 (format port "CONFIG_ANY_TOOLCHAIN=y")))
              (apply invoke "make" "olddefconfig" make-flags))))))
     (propagated-inputs
      `())
