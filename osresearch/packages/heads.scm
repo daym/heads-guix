@@ -227,9 +227,24 @@
                 "08xdd5drk8yd37a3z5hc81qmgsybv6201i28hcggxh980vdz9pgh"))))
     (build-system gnu-build-system)
     (arguments
-     `(#:phases
+     `(#:make-flags
+       ;; FIXME: Copy the other flags from Heads.
+       (list "DOTCONFIG=.config"
+             "BUILD_TIMELESS=1"
+             "CFLAGS_x86_32=-gno-record-gcc-switches -Wno-error=packed-not-aligned -Wno-error=packed-not-aligned"
+             "CFLAGS_x86_64=-gno-record-gcc-switches -Wno-error=packed-not-aligned -Wno-error=packed-not-aligned"
+             ;; TODO: Heads uses coreboot-built iasl instead.
+             (string-append "IASL=" (assoc-ref %build-inputs "iasl")
+                            "/bin/iasl"))
+       #:phases
        (modify-phases %standard-phases
-         (delete 'configure))))
+         (replace 'configure
+           (lambda* (#:key make-flags #:allow-other-keys)
+             (call-with-output-file ".config"
+               ;; FIXME: Get config from Heads.
+               (lambda (port)
+                 #t))
+             (apply invoke "make" "olddefconfig" make-flags))))))
     (propagated-inputs
      `())
     (native-inputs
