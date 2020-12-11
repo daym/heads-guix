@@ -32,6 +32,7 @@
   #:use-module (gnu packages compression)
   #:use-module (gnu packages flex)
   #:use-module (gnu packages bison)
+  #:use-module (gnu packages cross-base)
   #:use-module (gnu packages elf)
   #:use-module (gnu packages m4)
   #:use-module (gnu packages busybox)
@@ -111,7 +112,6 @@
 
 ;(gnu packages commencement))))
 ;    (module-ref distro '%final-inputs)))
-;cross-base
 
 ;; FIXME musl-build-system
 (define-public heads-busybox
@@ -229,7 +229,8 @@
     (arguments
      `(#:make-flags
        ;; FIXME: Copy the other flags from Heads.
-       (list "DOTCONFIG=.config"
+       (list "CROSS=i686-linux-gnu-"
+             "DOTCONFIG=.config"
              "BUILD_TIMELESS=1"
              "CFLAGS_x86_32=-gno-record-gcc-switches -Wno-error=packed-not-aligned -Wno-error=packed-not-aligned"
              "CFLAGS_x86_64=-gno-record-gcc-switches -Wno-error=packed-not-aligned -Wno-error=packed-not-aligned"
@@ -248,7 +249,11 @@
     (propagated-inputs
      `())
     (native-inputs
-     `())
+     `(("cross-gcc" ,(cross-gcc "i686-linux-gnu"
+                                #:xbinutils (cross-binutils "i686-linux-gnu")
+                                #:libc (cross-libc "i686-linux-gnu")))
+       ("cross-libc" ,(cross-libc "i686-linux-gnu")) ; header files
+       ("cross-libc-static" ,(cross-libc "i686-linux-gnu") "static")))
     (inputs
      `())
     (synopsis "coreboot")
