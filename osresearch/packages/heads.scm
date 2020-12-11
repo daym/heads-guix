@@ -222,7 +222,7 @@
               (file-name (string-append name "-" version ".tar.gz"))
               (sha256
                (base32
-                "1vsrc3s62kv1i84skm6k5zy868gayjck268qwj38rpspc8c5qgih"))))
+                "15g222xj1zdn8i8qz0pw2jf28h66dljb1q5isw2ml05gwfd51ahq"))))
     (build-system copy-build-system)
     (arguments
      '(#:install-plan
