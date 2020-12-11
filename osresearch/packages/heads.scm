@@ -268,7 +268,7 @@ systems supported by coreboot.")
          (add-after 'unpack 'fix-build-failure
            (lambda _
              (substitute* "Makefile.inc"
-              (("^spc :=$") "null :=\nspc := $(null) $(null)\n"))))
+              (("^spc :=") "null :=\nspc := $(null) $(null)"))))
          (replace 'configure
            (lambda* (#:key make-flags #:allow-other-keys)
              (call-with-output-file ".config"
